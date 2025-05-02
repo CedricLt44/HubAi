@@ -1,0 +1,100 @@
+{% extends "backend/base.html" %} {% block content %} {% load static %}
+
+<!-- Contenu principal -->
+<div class="h-screen flex">
+  <nav
+    class="items-center bg-lime-50 w-[30rem] h-screen flex flex-col  gap-5 border-r border-slate-100"
+    style="font-family: 'Kanit', sans-serif;"
+  >
+    <form
+      method="POST"
+      action="{% url 'chatbot:toggle_history' %}"
+      class="inline"
+    >
+      {% csrf_token %}
+      <button type="submit" class="cursor-pointer">
+        <div class="flex items-center space-x-2">
+          <h1 class="text-lime-900 text-lg">Historique des conversations</h1>
+          <i
+            class="bx bx-lg text-lime-900 hover:text-lime-400 {% if show_history %}bxs-low-vision{% else %}bxs-show{% endif %}"
+          ></i>
+        </div>
+      </button>
+    </form>
+    {% if show_history %}
+    <div
+      id="conversation"
+      class="overflow-y-auto h-[40rem] w-full m-2 p-4 border rounded"
+    >
+      {% for message in conversation_history %}
+      <div class="message {{ message.role }}">
+        <strong>{{ message.role|capfirst|safe }}:</strong> {{ message.content }}
+      </div>
+      {% endfor %}
+    </div>
+    <form method="POST" action="{% url 'chatbot:clear_history' %}">
+      {% csrf_token %}
+      <button
+        type="submit"
+        class="text-red-400 hover:text-red-900 cursor-pointer"
+      >
+        Supprimer l'historique
+      </button>
+    </form>
+    {% endif %}
+  </nav>
+
+  <div
+    class="ml-10 mr-10 right w-full flex gap-2 flex-col"
+    style="font-family: 'Kanit', sans-serif;"
+  >
+    <p class="mt-10 text-2xl text-lime-600">
+      Votre assistant IA répond à vos questions.
+    </p>
+
+    <!-- Formulaire de saisie zone de chat -->
+    <form method="POST" action="{% url 'chatbot:chatbot' %}">
+      {% csrf_token %}
+      <label for="user_input">Votre question :</label>
+      <textarea
+        id="user_input"
+        name="user_input"
+        rows="4"
+        class="block p-2.5 w-full text-sm text-gray-900 mb-8 mt-5 bg-gray-50 rounded-lg border border-gray-300"
+        placeholder="Votre question..."
+      ></textarea>
+      <button
+        type="submit"
+        class="rounded-xl border-2 border-lime-600 max-w-[7rem] p-2 text-lime-600 hover:text-lime-950 hover:bg-lime-200"
+      >
+        Envoyer
+      </button>
+    </form>
+    <!-- Zone de chat -->
+    <div
+      id="chat-box"
+      class="mt-10 h-80 overflow-y-auto mb-4 p-4 border rounded bg-gray-50"
+    >
+      {% if user_input %}
+      <div class="user-message mb-2 p-2 bg-lime-100 rounded">
+        <strong>Vous :</strong> {{ user_input }}
+      </div>
+      {% if bot_response %}
+      <div class="bot-message mb-2 p-2 bg-gray-200 rounded">
+        <img
+          src="{% static 'img/iconChatbot.svg' %}"
+          alt="Assistant IA"
+          class="inline-block mr-2"
+          style="width: 40px; height: 40px;"
+        />
+        <strong>Assistant :</strong>
+        <div>{{ bot_response|safe }}</div>
+      </div>
+      {% endif %} {% else %}
+      <p class="text-gray-500">Aucune conversation pour le moment.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

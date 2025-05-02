@@ -1,0 +1,112 @@
+{% extends "backend/base.html" %} {% block content %} {% load static %}
+
+<img
+  src="{% static 'img/hubailogo.svg' %}"
+  alt="Logo"
+  class="mx-auto mb-5"
+  style="height: 5rem; margin-top: 2rem;"
+/>
+
+<form
+  method="POST"
+  action="."
+  class="flex flex-col items-center text-center rounded-3xl"
+  style="font-family: 'Kanit', sans-serif;"
+>
+  {% csrf_token %}
+
+  <h1 class="mb-3 text-lime-900" style="font-size:3rem;letter-spacing: 0.5rem;">
+    S'INSCRIRE
+  </h1>
+
+  <p class="mb-4 text-lime-500">Entrer votre email et mot de passe</p>
+
+  <!-- Nom -->
+  <div class="items-center mb-5 w-xl">
+    <label for="name" class="flex mb-2 text-sm text-start ml-35">Nom*</label>
+    <input
+      type="text"
+      name="name"
+      placeholder="Votre nom"
+      id="name"
+      class="relative w-full h-10 px-4 text-sm transition-all border rounded outline-none focus-visible:outline-none peer border-slate-200 text-slate-500 autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-indigo-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+      required
+    />
+  </div>
+  <!-- Email -->
+  <div class="items-center mb-5 w-xl">
+    <label for="email" class="flex mb-2 text-sm text-start ml-35">Email*</label>
+    <input
+      type="email"
+      name="email"
+      placeholder="Votre E-mail"
+      id="email"
+      class="relative w-full h-10 px-4 text-sm transition-all border rounded outline-none focus-visible:outline-none peer border-slate-200 text-slate-500 autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-indigo-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+      required
+    />
+  </div>
+
+  <!-- Mot de passe -->
+  <div class="items-center mb-5 w-xl">
+    <label for="password1" class="flex mb-2 text-sm text-start ml-35"
+      >Mot de passe*</label
+    >
+    <input
+      type="password"
+      name="password1"
+      placeholder="mot de passe"
+      id="password2"
+      class="relative w-full h-10 px-4 text-sm transition-all border rounded outline-none focus-visible:outline-none peer border-slate-200 text-slate-500 autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-indigo-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+      required
+    />
+  </div>
+
+  <!-- Confirmation du mot de passe -->
+  <div class="items-center mb-5 w-xl">
+    <label for="password2" class="flex mb-2 text-sm text-start ml-35"
+      >Confirmer votre mot de passe*</label
+    >
+    <input
+      type="password"
+      name="password2"
+      placeholder="Répétez le Mot de passe"
+      id="password1"
+      class="relative w-full h-10 px-4 text-sm transition-all border rounded outline-none focus-visible:outline-none peer border-slate-200 text-slate-500 autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-indigo-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+      required
+    />
+  </div>
+
+  <!-- Bouton submit -->
+  <div class="items-center mb-5 w-xl">
+    <button
+      type="submit"
+      name="submit"
+      class="cursor-pointer p-2 rounded-xl border-2 border-lime-500 bg-lime-500 text-lime-100 hover:bg-lime-100 hover:text-lime-500"
+    >
+      S'INSCRIRE
+    </button>
+  </div>
+
+  <!-- Ligne de séparation "or" -->
+  <div class="flex w-xl items-center mt-3 mb-3">
+    <hr class="flex-grow border-b-2 border-lime-400" />
+    <p class="mx-4 text-xl text-lime-400">or</p>
+    <hr class="flex-grow border-b-2 border-lime-400" />
+  </div>
+
+  <!-- Connexion avec Google -->
+  <div class="flex border-2 rounded-lg border-lime-100">
+    <button
+      class="p-4 cursor-pointer flex items-center space-x-2 hover:bg-lime-100 rounded-md w-full"
+    >
+      <img
+        class="h-5"
+        src="{% static 'img/google-logo.svg' %}"
+        alt="google-logo"
+      />
+      <span class="text-lime-700">Créer un compte avec Google</span>
+    </button>
+  </div>
+</form>
+
+{% endblock %}

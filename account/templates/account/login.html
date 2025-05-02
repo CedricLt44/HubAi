@@ -1,0 +1,82 @@
+{% extends "backend/base.html" %} {% block content %} {% load static %}
+
+<img
+  src="{% static 'img/hubailogo.svg' %}"
+  alt="Logo"
+  class="mx-auto mb-5"
+  style="height: 5rem; margin-top: 2rem;"
+/>
+
+<form
+  method="post"
+  class="flex flex-col items-center text-center rounded-3xl"
+  style="font-family: 'Kanit', sans-serif;"
+>
+  {% csrf_token %}
+  <h1 class="mb-3 text-lime-900" style="font-size:3rem;letter-spacing: 0.5rem;">
+    SE CONNECTER
+  </h1>
+
+  <!-- session login manuel -->
+  <p class="mb-4 text-lime-500">Entrer votre email et mot de passe</p>
+  <!-- Email  -->
+  <div class="items-center  mb-5 w-xl">
+    <label for="email" class="flex mb-2 text-sm text-start ml-35">Email*</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      placeholder="entrer votre mail"
+      required
+      class="p-2 pr-20 rounded-xl border-2 border-lime-200 "
+    />
+  </div>
+  <!-- pasword -->
+  <div class="items-center  mb-5 w-xl">
+    <label for="password" class="flex mb-2 text-sm text-start ml-35"
+      >mot de passe*</label
+    >
+    <input
+      id="password"
+      type="password"
+      name="password"
+      placeholder="entrer votre mot de passe"
+      required
+      class="p-2 pr-20 rounded-xl border-2 border-lime-200 "
+    />
+  </div>
+  <!-- button submit -->
+  <div class="items-center mb-5 w-xl">
+    <button
+      type="submit"
+      class="cursor-pointer p-2 rounded-xl border-2 border-lime-500 bg-lime-500 text-lime-100 hover:bg-lime-100 hover:text-lime-500"
+    >
+      SE CONNECTER
+    </button>
+  </div>
+
+  <!-- LIGNE DE SÉPARATION "OR" -->
+  <div class="flex w-xl items-center mt-3 mb-3">
+    <hr class="flex-grow border-b-2 border-lime-400" />
+    <p class="mx-4 text-xl text-lime-400">or</p>
+    <hr class="flex-grow border-b-2 border-lime-400" />
+    <hr />
+  </div>
+  <!--  connection avec google -->
+
+  <div class="flex border-2 rounded-lg border-lime-100">
+    <a
+      href=""
+      class="p-4 cursor-pointer flex items-center space-x-2 hover:bg-lime-100 rounded-md w-full"
+    >
+      <img
+        class="h-5"
+        src="{% static 'img/google-logo.svg' %}"
+        alt="google-logo"
+      />
+      <span class="text-lime-700">se connecter avec Google</span>
+    </a>
+  </div>
+</form>
+
+{% endblock %}

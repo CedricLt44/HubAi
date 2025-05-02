@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="{% static 'dist/styles.css' %}" />
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <title>{% block title %}HubAi{% endblock %}</title>
+  </head>
+
+  <body>
+    <!-- config front de la barre de navigation -->
+    <div
+      class="bg-gradient-to-r from-black via-lime-900 to-lime-600 rounded shadow-lg py-2 px-6"
+      id="sidebar"
+    >
+      {% block sidebar %}
+      <nav
+        class="justify-between flex"
+        style="font-family: 'Kanit', sans-serif;"
+      >
+        <div class="flex items-center space-x-20 ">
+          <ul class="flex">
+            <img
+              src="{% static 'img/hubailogoWhite.svg' %}"
+              alt="Logo"
+              class="cursor-pointer max-h-10 m-4"
+              style="height: 2rem;"
+            />
+          </ul>
+
+          <ul class="flex items-center	 space-x-10">
+            {% if request.user.is_authenticated %}
+            <a
+              class="rounded-xl border-2 p-2 border-lime-500 text-lime-500 hover:border-lime-100 hover:text-lime-100"
+              href="{% url 'backend:home' %}"
+              >HOME
+            </a>
+
+            <a
+              class="rounded-xl border-2 p-2 border-lime-500  text-lime-500  hover:border-lime-100 hover:text-lime-100"
+              href="{% url 'chatbot:chatbot' %}"
+            >
+              CHATBOT
+            </a>
+
+            {% else %}
+            <a
+              class="rounded-xl border-2 p-2 border-lime-500  text-lime-500  hover:border-lime-100 hover:text-lime-100"
+              href="{% url 'account:login' %}"
+            >
+              SE CONNECTER
+            </a>
+            <a
+              class="rounded-xl border-2 p-2 border-lime-500  text-lime-500  hover:border-lime-100 hover:text-lime-100"
+              href="{% url 'account:signup' %}"
+            >
+              S'INSCRIRE
+            </a>
+            {% endif %}
+          </ul>
+        </div>
+        <ul class="flex items-center space-x-10">
+          {% if request.user.is_authenticated %}
+          <form method="POST" action="{% url 'backend:logout' %}">
+            {% csrf_token %}
+            <button
+              type="submit"
+              class="bx bx-lg bx-log-out text-3xl text-lime-9500 hover:text-lime-200 cursor-pointer"
+            ></button>
+          </form>
+          {% endif %}
+          <a
+            class="text-4xl"
+            href="https://www.linkedin.com/in/cedric-le-tutour"
+            target="_blank"
+            aria-label="LinkedIn"
+            ><i
+              class="bx bx-lg bxl-linkedin text-lime-950 hover:text-lime-200"
+            ></i
+          ></a>
+
+          <a
+            class="text-4xl"
+            href="https://github.com/CedricLt44"
+            target="_blank"
+            aria-label="GitHub"
+            ><i
+              class="bx bx-lg bxl-github  text-lime-950 hover:text-lime-200 "
+            ></i
+          ></a>
+        </ul>
+      </nav>
+      {% endblock %}
+    </div>
+
+    <!--  fin de la config front de la navbar -->
+    <div id="content">{% block content %}{% endblock %}</div>
+  </body>
+</html>
