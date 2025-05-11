@@ -1,4 +1,4 @@
-# POJET DJANGO - Progiciel // intégration CHATBOT
+# PROJET DJANGO - Progiciel // intégration CHATBOT
 
 ================================
 
